@@ -24,7 +24,7 @@ export const getStaticPaths = async (ctx) => {
 //- The page must be pre-rendered (for SEO) and be very fast — getStaticProps generates HTML and JSON files, both of which can be cached by a CDN for performance.
 export const getStaticProps = async (ctx) => {
   const post_id = ctx.params.id; //id [id]
-  if (!post_id) return <Skeleton />;
+
   const post = await fetch(
     `https://hoclam.me/wp-json/wp/v2/posts/${post_id}`
   ).then((res) => res.json()); // your fetch function here
