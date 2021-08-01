@@ -29,12 +29,22 @@ export const getStaticProps = async (ctx) => {
     `https://hoclam.me/wp-json/wp/v2/posts/${post_id}`
   ).then((res) => res.json()); // your fetch function here
 
+  if (post.data !== undefined && post.data.status === 404) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
   return {
     props: { post },
   };
 };
 function SinglePost({ post }) {
-  return (
+  return !post ? (
+    <div>...</div>
+  ) : (
     <div>
       <h2>{post.title.rendered}</h2>
       <p>{post.excerpt.rendered}</p>
